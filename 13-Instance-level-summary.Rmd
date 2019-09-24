@@ -1,49 +1,56 @@
 # Summary of Instance-level Explainers {#summaryInstanceLevel}
 
-This part of the book was devoted to tools for exploration, explanation and debugging of predictive models around single prediction/single instance. 
+In the first part of the book, we introduced a number of techniques for exploration and explanation of model predictions for instances of interest. In this chaper, we discuss their strengths and weaknesses taking into account different possible applications. 
 
-In Chapters \@ref(ceterisParibus)-\@ref(localDiagnostics) we discussed methods related to the concept of feature oriented exploration, aka. Ceteris Paribus Profils. 
-Chapters \@ref(breakDown)-\@ref(shapley) show methods that calculate contributions of individual feature to model predictions. 
-Chapter \@ref(LIME) presens an alternative approach focused on sparse explanations.
-All these chapters were method-oriented. In this chapter we will compare these methods, discuss options how they can be used together and when they serves a different needs.
+[TOMASZ: THIS WOULD LOOK MORE APPROPRIATE AS A FINAL SECTION OF A CHAPTER, IN WHICH THERE WOULD BE ONE OR TWO WORKED EXAMPLES ILLUSTRATING APPLICATION OF VARIOUS METHODS.]
 
+## Number of explanatory variables in the model
 
-## Number of features, size of the data
+One of the most important criteria for selection of model exploration and explaination methods is the number of explanatory variables in the model.
 
+![figure/instanceExplainer.jpg](figure/instanceExplainer.jpg)
 
+### Low to medium number of explanatory variables
 
-
-
-## Questions in mind
-
-
+A low number of variables usually implies that the particular variables have a very concrete meaning and interpretation. An example are models for the Titanic data presented in Sections \@ref(model-titanic-lmr)-\@ref(model-titanic-gbm).
+ 
+In such a situation, the most detailed information about the influence of the variables on the model predictions is provided by the CP profiles. In particular, the variables that are most influential for model predictions are selected by considering CP-profile oscillations (see Chapter \@ref(ceterisParibusOscillations)) and then illustrated graphically with the help of individual-variable CP profiles (see Chapter \@ref(ceterisParibus)).
 
 
+### Medium to large number of explanatory variables
 
+In models with a medium or large number of variables, it is still possible that most (or all) of them are interpretable. An example of such a model is a credit-scoring model [TOMASZ: SCORING IN WHICH SENSE? THE RISK OF PAYMENT OF INSTALLMENTS?] based on behavioral data that may include 100+ variables. [TOMASZ: WE HAVE NOT GOT ANY EXAMPLE.] 
 
-TODO  compare pros and cons of different techniques
+When the number of explanatory variables increases, it becomes harder to show CP profile for each individual variable. In such situation, the most common approach is to use BD plots, presented in Chapter \@ref(breakDown), or plots of Shapley values, discussed in Cahpter \@ref(shapley)). They allow a quick evaluation whether a particular variable has got a positive or negative effect on model's prediction; we can also judge the size of the effect. If necessary, it is possible to limit the plots only to the variables with the largest effects.
 
-TODO: Sparse model approximation / variable selection / feature ranking
+### Very large number of explanatory variables
 
-TODO comparison of difrerent approach for Johny D
+When the number of explanatory variables is very large, it may be difficult to interpret the role of each single variable. An example of such situation are models for processing of images or texts. In that case, explanatory variables may be individual pixels in image processing or individual characters in text analysis. As such, their individual interpretation is limited. Due to additional issues with computational complexity, it is not feasible to use CP profiles, BD plots, nor Shapley values to evaluate influence of individual values on model's predictions. Instead, the most common approach is to use LIME, presented in Chapter \@ref(LIME), which works on context-relevant groups of variables.
 
-TODO Champion-Challenger explainers
+## Correlated explanatory variables
 
-![figure/localExplainers.png](figure/localExplainers.png)
+Most of the presented methods assumed that explanatory variables are independent. Obviously, this is not always the case. For instance, in the case of the data on aparemten prices (see Chapter \@ref(ApartmentDataset)), the number of rooms and surface of an apartment will most likely be positively associated.
 
-## When to use? 
+To address the issue, the two most common approaches are:
+* to create new features that are independent (sometimes it is possible due to domain knowledge; sometimes it can e achieve by using principal components analysis or a similar technique),
+* permute variables in blocks to preserve the correlation structure, as it was described in Chapter \@ref(LIME) . 
 
-There are several use-cases for such explainers. Think about following.
+## Models with interactions
 
-* Model improvement. If model works particular bad for a selected observation (the residual is very high) then investigation of model responses for miss fitted points may give some hints how to improve the model. For individual predictions it is easier to notice that selected variable should have different a effect.
-* Additional domain specific validation. Understanding which factors are important for model predictions helps to be critical about model response. If model contributions are against domain knowledge then we may be more skeptical and willing to try another model. On the other hand, if the model response is aligned with domain knowledge we may trust more in these responses. Such trust is important in decisions that may lead to serious consequences like predictive models in medicine.
-* Model selection. Having multiple candidate models one may select the final response based on model explanations. Even if one model is better in terms of global model performance it may happen that locally other model is better fitted. This moves us towards model consultations that identify different options and allow human to select one of them. 
+In models with initeractions, the effect of one explanatory variable may depend on values of other variables. For example, the probability of survival on Titanic may decrease with age, but the effect may be different for different classes of passengers. [TOMASZ: WE HAVE NOT GOT SUCH A MODEL.] In such a case, to explore and explain model's predictions, we have got to consider not individual variables, but sets of variables included in interactions. To identify interactions, we can use BD plots as described in Chapter \@ref(iBreakDown). To investigate the effect of  pairwise interactions, we can use 2D CP profiles, as introduced in \@ref(). [TOMASZ: WE MISS A CHAPTER ON 2D PROFILES. WORTH RE-INTRODUCING? OR - WE SHOULD HAVE AN EXAMPLE.] 
 
+## Sparse explanations
 
+Predictive models may use hundreds of explanatory variables to yield a prediction for a particular instance. However, for a meaningful interpretation and illustration, most of human beings can handle only a very limited (say, less than 10) number of variables. Thus, sparse explanations are of interest. The most common method that is used to construct such explanations is LIME (Chapter \@ref(LIME)). However, constructing a sparse explanation for a complex model is not trivial and may be misleading. Hence, care is needed when applying LIME to very complex models.
 
+## Additional uses of model exploration and explanation 
 
-Enslaving the Algorithm: From a ‘Right to an Explanation’ to a ‘Right to Better Decisions’?
-[@Edwards_Veale_2018]
+In the previous chapters we focused on the application of the presented methods to exploration and explanation of predictive models. However, the methods can also be used to other aims:
 
+* Model improvement. If a model prediction is particularly bad for a selected observation, then the investigation of the reasons for such a bad performance may provide some hints about how to improve the model. In case of instance predcitions it is easier to note that a selected explanatory variable should have a different effect than the observed one.
+
+* Additional domain-specific validation. Understanding which factors are important for model predictions helps in evalaution of the plausibility of the model. If the effects of some variables on the predictions are inconsistent with the domain knowledge, then this may provide a ground for criticising the model and, eventually, replacing it by another one. On the other hand, if the influence of the variables on model predictions is consistent with prior expectations, the user may become more confident with the model. Such a confidence is fundamental when the model predictions are used as a support for taking decisions that may lead to serious consequences, like in the case of, for example, predictive models in medicine.
+
+* Model selection. In case of multiple candidate models, one may use results of the model explanation techniques to select one of the candidates. It is possible that, even if two models are similar in terms of a global model fit, the fit of one of them is locally much better. Consider the following, highly hypothethical example. Assume that a model is sought to predict whether it will rain on a particular day in a region where it rains on a half of the days. Two models are considered: one which simply predicts that it will rain every other day, and another that predicts that it will rain every day since October till March. Arguably, both models are rather unsophisticated (to say the least), but they both predict that, on average, half of the days wll be rainy. However, investigation of the instance predictions (for individual days) may lead to a preference for one of them. [TOMASZ: NOT SURE IF HELPFUL, BUT WANTED TO MAKE THIS CASE MORE CONCRETE.]    
 
 
