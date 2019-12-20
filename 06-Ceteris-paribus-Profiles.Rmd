@@ -11,12 +11,53 @@ Explanation tools (explainers) presented in this chapter are linked to the secon
 
 Panel A of Figure \@ref(fig:modelResponseCurveLine) presents response (prediction) surface for the `titanic_lmr_v6` model for two explanatory variables, *age* and *class*, from the *titanic* dataset (see Section \@ref(TitanicDataset)). We are interested in the change of the model prediction induced by each of the variables. Toward this end, we may want to explore the curvature of the response surface around a single point with *age* equal to 47 and *class* equal to "1st," indicated in the plot. Ceteris-paribus (CP) profiles are one-dimensional profiles that examine the curvature across each dimension, i.e., for each variable. Panel B of Figure \@ref(fig:modelResponseCurveLine) presents the profiles corresponding to *age* and *class*. Note that, in the CP profile for *age*, the point of interest is indicated by the black dot. In essence, a CP profile shows a conditional expectation of the dependent variable (response) for the particular explanatory variable.  
 
-
 ```{r modelResponseCurveLine, echo=FALSE, fig.cap="(fig:modelResponseCurveLine) A) Model response (prediction) surface. Ceteris-paribus (CP) profiles marked with black curves help to understand the curvature of the surface while changing only a single explanatory variable. B) CP profiles for individual variables, age (continuous) and class (categorical).", out.width = '70%', fig.align='center'}
 knitr::include_graphics("figure/profile_age_class.png")
 ```
 
-CP technique is similar to the LIME method (see Chapter \@ref(LIME)). LIME and CP profiles examine the curvature of response surface of a model. The difference between these two methods lies in the fact that LIME approximates the black-box model of interest locally with a simpler glass-box model. Usually, the LIME model is sparse, i.e., contains fewer explanatory variables. Thus, one needs to investigate a plot across a smaller number of dimensions. On the other hand, the CP profiles present conditional predictions for every variable and, in most cases, are easier to interpret. 
+```{r modelResponseCurveAnimation, echo=FALSE, fig.cap="(fig:modelResponseCurveAnimation) Animated model response 2D surface as in (fig:modelResponseCurveLine).", out.width = '70%', fig.align='center'}
+knitr::include_graphics("figure/profile_age_class.gif")
+```
+
+
+
+```{r, echo=FALSE, eval=FALSE}
+# 3D animated map
+age <- rep(0:100, each = 5)
+class <- rep(c(3,2,1,4,5,6,7), each = 80)
+ac <- expand.grid(age, class)
+achenry <- henry[rep(1,nrow(ac)),]
+achenry$age <- ac$Var1
+achenry$class <- levels(titanic$class)[ac$Var2]
+
+library("rms")
+explain_lmr_v6 <- archivist::aread("pbiecek/models/2b9b6")
+
+achenry$predict <- predict(explain_lmr_v6, achenry)
+
+library(plotly)
+acmat <- matrix(achenry$predict, ncol = length(class))
+p <- plot_ly(z = ~acmat) %>% add_surface()
+p
+
+
+achenry$class <- reorder(achenry$class, achenry$predict, mean)
+
+gghenry <- ggplot(achenry[,c(1,3,8)], aes(class, age)) +
+ geom_raster(aes(fill = predict)) + coord_flip() +
+  scale_fill_gradient2(midpoint = 0.5)
+
+library(rayshader)
+plot_gg(gghenry, width = 5, height = 5,  multicore = TRUE, scale = 250, 
+        zoom = 0.7, 
+        theta = 10, phi = 30, windowsize = c(800, 800))
+```
+
+
+CP belongs to the class of techniques that examine local curvature of the model response surface. Other very popular technique from this class called LIME is presented in Chapter \@ref(LIME).
+
+CP technique is similar to the LIME method (see Chapter \@ref(LIME)). LIME and CP profiles examine the curvature of response surface of a model. The difference between these two methods lies in the fact that LIME approximates the model of interest locally with a simpler glass-box model. Usually, the LIME model is sparse, i.e., contains fewer explanatory variables. Thus, one needs to investigate a plot across a smaller number of dimensions. On the other hand, the CP profiles present conditional predictions for every variable and, in most cases, are easier to interpret. More detailed comparison of these techniques is presented in the Chapter \@ref(summaryInstanceLevel).
+
 
 ## Method {#CPMethod}
 
@@ -31,7 +72,7 @@ Recall (see Section \@ref(notation)) that we use $x_i$ to refer to the vector co
 We define a one-dimensional CP profile $h()$ for model $f()$, the $j$-th explanatory variable, and point $x_*$ as follows:
 
 $$
-h^{f,j}_{x_*}(z) \equiv f(x_*^{j|=z}).
+h^{f,j}_{x_*}(z) := f(x_*|^j=z).
 $$
 CP profile is a function that provides the dependence of the approximated expected value (prediction) of $Y$ on the value $z$ of the $j$-th explanatory variable. Note that, in practice, $z$ is taken to go through the entire range of values typical for the variable, while values of all other explanatory variables are kept fixed at the values specified by $x_*$. 
 
@@ -71,7 +112,7 @@ There are several issues related to the use of the CP profiles. If explanatory v
 
 In this section, we present key features of the R package `ingredients` [@ingredientsRPackage] which is a part of `DrWhy.AI` universe and covers all methods presented in this chapter. More details and examples can be found at https://modeloriented.github.io/ingredients/.
 
-Note that there are also other R packages that offer similar functionality, like `condvis` [@JSSv081i05], `pdp` [@pdpRPackage], `ICEbox` [@ICEboxRPackage], `ALEPlot` [@ALEPlotRPackage], `iml` [@imlRPackage].
+Note that there are also other R packages that offer similar functionality, like `condvis` [@condvisRPackage], `pdp` [@pdpRPackage], `ICEbox` [@ICEbox], `ALEPlot` [@ALEPlotRPackage], `iml` [@imlRPackage].
 
 For illustration, we use two classification models developed in Chapter \@ref(TitanicDataset), namely the logistic regression model `titanic_lmr_v6` (Section \@ref(model-titanic-lmr)) and the random forest model `titanic_rf_v6` (Section \@ref(model-titanic-rf)). They are developed to predict the probability of survival after sinking of Titanic. Instance-level explanations are calculated for a single observation `henry` - a 47 years old male passenger that travelled in the 1st class.
 
@@ -113,7 +154,7 @@ cp_titanic_rf
 
 To obtain a graphical representation of CP profiles, the generic `plot()` function can be applied to the data frame returned by the `ceteris_paribus()` function. It returns a `ggplot2` object that can be processed further if needed. In the examples below, we use the `ggplot2` functions, like `ggtitle()` or `ylim()`, to modify plot's title or the range of the Y-axis.
 
-The resulting plot can be enriched with additional data by applying functions `ingredients::show_rugs()` (adds rugs for the selected points), `ingredients::show_observations` (adds dots that shows observations), or `ingredients::show_aggreagated_profiles`. All these functions can take additional arguments to modify size, color, or linetype.
+The resulting plot can be enriched with additional data by applying functions `ingredients::show_rugs` (adds rugs for the selected points), `ingredients::show_observations` (adds dots that shows observations), or `ingredients::show_aggreagated_profiles`. All these functions can take additional arguments to modify size, color, or linetype.
 
 Below we show an R snippet that can be used to replicate plots presented in the upper part of Figure \@ref(fig:profileV4Rf).
 

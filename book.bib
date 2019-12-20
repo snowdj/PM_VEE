@@ -61,6 +61,15 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
     url = {https://CRAN.R-project.org/package=rms},
   }
   
+@Book{AppliedPredictiveModeling2013,
+  title = {{Applied Predictive Modeling}},
+  author = {Max Kuhn and Kjell Johnson},
+  publisher = {Springer},
+  year = {2013},
+  note = {ISBN 978-1461468486},
+  url = {http://appliedpredictivemodeling.com/},
+}
+
 @Book{xie2015,
   title = {Dynamic Documents with {R} and knitr},
   author = {Yihui Xie},
@@ -91,11 +100,14 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
 }
 
 @Manual{DALEX,
-    title = {DALEX: Descriptive mAchine Learning EXplanations},
+   title = {DALEX: Explainers for Complex Predictive Models in R},
     author = {Przemyslaw Biecek},
+    journal = {Journal of Machine Learning Research},
     year = {2018},
-    note = {R package version 0.2},
-    url = {https://pbiecek.github.io/DALEX/},
+    volume = {19},
+    pages = {1-5},
+    number = {84},
+    url = {http://jmlr.org/papers/v19/18-416.html}
   }
 
 @Book{ggplot2,
@@ -134,6 +146,15 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
 	pages = {547--553}
 }
   
+  @Article{auditorarxiv,
+    author = {Alicja Gosiewska and Przemysław Biecek},
+    title = {{auditor}: an {R} Package for Model-Agnostic Visual Validation and Diagnostic},
+    journal = {ArXiv e-prints},
+    archiveprefix = {arXiv},
+    eprint = {1809.07763},
+    primaryclass = {stat.CO},
+    year = {2018}
+  }
 
   @Manual{caret,
     title = {caret: Classification and Regression Training},
@@ -191,13 +212,15 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
     note = {R package version 0.9},
     url = {https://github.com/MI2DataLab/randomForestExplainer},
   }
- @Manual{xgboostExplainer,
+  
+@Manual{xgboostExplainer,
     title = {xgboostExplainer: An R package that makes xgboost models fully interpretable},
     author = {David Foster},
     year = {2017},
     note = {R package version 0.1},
-    url = {https://github.com/AppliedDataSciencePartners/xgboostExplainer/},
-  }
+    url = {https://github.com/AppliedDataSciencePartners/xgboostExplainer/}
+}
+  
  @Manual{live,
     title = {live: Local Interpretable (Model-agnostic) Visual Explanations},
     author = {Mateusz Staniak and Przemyslaw Biecek},
@@ -234,19 +257,7 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
   }
 
 
-  @Article{pdp,
-    title = {pdp: An R Package for Constructing Partial Dependence Plots},
-    author = {Brandon M. Greenwell},
-    journal = {The R Journal},
-    year = {2017},
-    volume = {9},
-    number = {1},
-    pages = {421--436},
-    url = {https://journal.r-project.org/archive/2017/RJ-2017-016/index.html},
-  }
-
-
-   @Manual{factorMerger,
+@Manual{factorMerger,
     title = {factorMerger: Hierarchical Algorithm for Post-Hoc Testing},
     author = {Agnieszka Sitko and Przemyslaw Biecek},
     year = {2017},
@@ -279,7 +290,7 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
   }
   
   
-  @article{MAGIX,
+@article{MAGIX,
   author    = {Nikaash Puri and
                Piyush Gupta and
                Pratiksha Agarwal and
@@ -298,7 +309,7 @@ author = "Rok Piltaver and Mitja Luštrek and Matjaž Gams and Sanda Martinčić
 }
 
 
-@article{RJ2017016,
+@article{pdpRPackage,
   author = {Brandon M. Greenwell},
   title = {{pdp: An R Package for Constructing Partial Dependence Plots}},
   year = {2017},
@@ -324,18 +335,27 @@ archivePrefix = "arXiv",
 }
 
 
- @article{Edwards_Veale_2018, title={Enslaving the Algorithm: From a “Right to an Explanation” to a “Right to Better Decisions”?}, volume={16}, ISSN={1540-7993, 1558-4046}, DOI={10.1109/MSP.2018.2701152}, number={3}, journal={IEEE Security and Privacy}, author={Edwards, Lilian and Veale, Michael}, year={2018}, month={May}, pages={46–54} }
+@article{Edwards_Veale_2018, 
+   title={Enslaving the Algorithm: From a 'Right to an Explanation' to a 'Right to Better Decisions'?}, 
+   volume={16}, 
+   ISSN={1540-7993, 1558-4046}, 
+   DOI={10.1109/MSP.2018.2701152}, 
+   number={3}, 
+   journal={IEEE Security and Privacy}, 
+   author={Edwards, Lilian and Veale, Michael}, 
+   year={2018}, 
+   month={May}, 
+   pages={46–54} 
+}
 
 
-@article{JSSv081i05,
+@article{condvisRPackage,
    author = {Mark O'Connell and Catherine Hurley and Katarina Domijan},
    title = {Conditional Visualization for Statistical Models: An Introduction to the condvis Package in R},
    journal = {Journal of Statistical Software, Articles},
    volume = {81},
    number = {5},
    year = {2017},
-   keywords = {interactive; graphics; regression; classification; blackbox models},
-   abstract = {The condvis package is for interactive visualization of sections in data space, showing fitted models on the section, and observed data near the section. The primary goal is the interpretation of complex models, and showing how the observed data support the fitted model. There is a video accompaniment to this paper available at https: //www.youtube.com/watch?v=rKFq7xwgdX0.},
    issn = {1548-7660},
    pages = {1--20},
    doi = {10.18637/jss.v081.i05},
@@ -434,6 +454,22 @@ archivePrefix = "arXiv",
 
 
 
+@article{LWRP,
+  author    = {Alexander Binder and
+               Gr{\'{e}}goire Montavon and
+               Sebastian Bach and
+               Klaus{-}Robert M{\"{u}}ller and
+               Wojciech Samek},
+  title     = {Layer-wise Relevance Propagation for Neural Networks with Local Renormalization
+               Layers},
+  journal   = {CoRR},
+  volume    = {abs/1604.00825},
+  year      = {2016},
+  url       = {http://arxiv.org/abs/1604.00825},
+  archivePrefix = {arXiv},
+  eprint    = {1604.00825},
+}
+
  @inbook{lime,
  title={Why Should I Trust You?: Explaining the Predictions of Any Classifier},
  ISBN={978-1-4503-4232-2},
@@ -445,6 +481,8 @@ archivePrefix = "arXiv",
  pages={1135–1144}
  }
 
+
+
   @Manual{ALEPlot,
     title = {ALEPlot: Accumulated Local Effects (ALE) Plots and Partial Dependence
 (PD) Plots},
@@ -454,6 +492,26 @@ archivePrefix = "arXiv",
     url = {https://CRAN.R-project.org/package=ALEPlot},
   }
 
+@Article{ROCR,
+    entry = {article},
+    title = {ROCR: visualizing classifier performance in R},
+    author = {T. Sing and O. Sander and N. Beerenwinkel and T. Lengauer},
+    year = {2005},
+    journal = {Bioinformatics},
+    volume = {21},
+    number = {20},
+    pages = {7881},
+    url = {http://rocr.bioinf.mpi-sb.mpg.de},
+  }
+
+@Manual{tidymodels,
+    title = {tidymodels: Easily Install and Load the 'Tidymodels' Packages},
+    author = {Kuhn Max and Hadley Wickham},
+    year = {2018},
+    note = {R package version 0.0.2},
+    url = {https://CRAN.R-project.org/package=tidymodels},
+  }
+  
 @inproceedings{Strumbelj,
 	author = {\v{S}trumbelj, Erik and Kononenko, Igor},
 	title = {A General Method for Visualizing and Explaining Black-box Regression Models},
@@ -501,18 +559,30 @@ url="https://doi.org/10.1007/s10115-013-0679-x"
 	month={Oct},
 }
 
- @Article{imlPackage,
-    author = {Christoph Molnar and Bernd Bischl and Giuseppe Casalicchio},
-    title = {iml: An R package for Interpretable Machine Learning},
-    doi = {10.21105/joss.00786},
-    url = {http://joss.theoj.org/papers/10.21105/joss.00786},
-    year = {2018},
-    publisher = {Journal of Open Source Software},
-    volume = {3},
-    number = {26},
-    pages = {786},
-    journal = {JOSS},
+  @Manual{localModelPackage,
+    title = {{localModel: LIME-Based Explanations with Interpretable Inputs Based on Ceteris Paribus Profiles}},
+    author = {Mateusz Staniak and Przemyslaw Biecek and Krystian Igras and Alicja Gosiewska},
+    year = {2019},
+    note = {R package version 0.3.11},
+    url = {https://CRAN.R-project.org/package=localModel},
   }
+
+
+@Manual{limePackage,
+    title = {{lime: Local Interpretable Model-Agnostic Explanations}},
+    author = {Thomas Lin Pedersen and Michaël Benesty},
+    year = {2019},
+    note = {R package version 0.5.0},
+    url = {https://CRAN.R-project.org/package=lime},
+  }
+
+@book{molnar2019,
+  title      = {{Interpretable Machine Learning}},
+  author     = {Christoph Molnar},
+  note       = {\url{https://christophm.github.io/interpretable-ml-book/}},
+  year       = {2019},
+  subtitle   = {A Guide for Making Black Box Models Explainable}
+}
 
 @book{molnar,
   title = {Interpretable Machine Learning},
@@ -738,28 +808,6 @@ year = {2018},
   url={https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazonscraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G}
 }
 
-@Article{pdpRPackage,
-    title = {pdp: An R Package for Constructing Partial Dependence Plots},
-    author = {Brandon M. Greenwell},
-    journal = {The R Journal},
-    year = {2017},
-    volume = {9},
-    number = {1},
-    pages = {421--436},
-    url = {https://journal.r-project.org/archive/2017/RJ-2017-016/index.html}
-  }
-
-@Article{ICEboxRPackage,
-    title = {Peeking Inside the Black Box: Visualizing Statistical Learning With Plots of Individual Conditional Expectation},
-    author = {Alex Goldstein and Adam Kapelner and Justin Bleich and Emil Pitkin},
-    journal = {Journal of Computational and Graphical Statistics},
-    volume = {24},
-    number = {1},
-    pages = {44--65},
-    doi = {10.1080/10618600.2014.907095},
-    year = {2015}
-  }
-
 @Manual{ALEPlotRPackage,
     title = {ALEPlot: Accumulated Local Effects (ALE) Plots and Partial Dependence (PD) Plots},
     author = {Dan Apley},
@@ -770,7 +818,7 @@ year = {2018},
 
 @Article{imlRPackage,
     author = {Christoph Molnar and Bernd Bischl and Giuseppe Casalicchio},
-    title = {iml: An R package for Interpretable Machine Learning},
+    title = {{iml: An R package for Interpretable Machine Learning}},
     doi = {10.21105/joss.00786},
     url = {http://joss.theoj.org/papers/10.21105/joss.00786},
     year = {2018},
@@ -781,26 +829,13 @@ year = {2018},
     journal = {JOSS}
   }
 
-@Article{iml,
-    author = {Christoph Molnar and Bernd Bischl and Giuseppe Casalicchio},
-    title = {iml: An R package for Interpretable Machine Learning},
-    doi = {10.21105/joss.00786},
-    url = {http://joss.theoj.org/papers/10.21105/joss.00786},
-    year = {2018},
-    publisher = {Journal of Open Source Software},
-    volume = {3},
-    number = {26},
-    pages = {786},
-    journal = {JOSS}
-  }
-
- @Manual{ingredientsRPackage,
+@Manual{ingredientsRPackage,
     title = {ingredients: Effects and Importances of Model Ingredients},
-    author = {Przemyslaw Biecek},
+    author = {Przemyslaw Biecek and Hubert Baniecki and Adam Izdebski and Katarzyna Pekala},
     year = {2019},
-    note = {R package version 0.3.2},
-    url = {https://ModelOriented.github.io/ingredients/},
-  }
+    note = {https://ModelOriented.github.io/ingredients/,
+https://github.com/ModelOriented/ingredients},
+  }  
   
   @Manual{gowerRPackage,
     title = {{gower: Gower's Distance}},
@@ -827,7 +862,7 @@ year = {2018},
 } 
 
 @ARTICLE{explainPaper,
-author={Marco {Robnik-Šikonja} and Igor {Kononenko}},
+author={Marco {Robnik-\v{S}ikonja} and Igor {Kononenko}},
 journal={IEEE Transactions on Knowledge and Data Engineering},
 title={Explaining Classifications For Individual Instances},
 year={2008},
@@ -836,17 +871,43 @@ number={5},
 pages={589-600},
 doi={10.1109/TKDE.2007.190734}}
 
+@ARTICLE{DeepLIFT,
+author    = {Avanti Shrikumar and
+               Peyton Greenside and
+               Anshul Kundaje},
+  title     = {Learning Important Features Through Propagating Activation Differences},
+  journal   = {CoRR},
+  volume    = {abs/1704.02685},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1704.02685},
+  archivePrefix = {arXiv},
+  eprint    = {1704.02685},
+}
+
+
  @Manual{explainPackage,
     title = {ExplainPrediction: Explanation of Predictions for Classification and Regression
 Models},
-    author = {Marko Robnik-Sikonja},
+    author = {Marko {Robnik-\v{S}ikonja}},
     year = {2018},
     note = {R package version 1.3.0},
     url = {https://CRAN.R-project.org/package=ExplainPrediction},
   }
   
+@article{picard_1985, 
+   title={Testing and estimating change-points in time series}, 
+   volume={17}, 
+   DOI={10.2307/1427090}, 
+   number={4}, 
+   journal={Advances in Applied Probability}, 
+   publisher={Cambridge University Press}, 
+   author={Picard, Dominique}, 
+   year={1985}, 
+   pages={841–867}
+}
+  
 @article{imeJLMR,
- author = {Strumbelj, Erik and Kononenko, Igor},
+ author = {\v{S}trumbelj, Erik and Kononenko, Igor},
  title = {An Efficient Explanation of Individual Classifications Using Game Theory},
  journal = {Journal of Machine Learning Research},
  issue_date = {3/1/2010},
@@ -878,14 +939,6 @@ Models},
     url = {https://github.com/ModelOriented/shapper},
   }
   
-  @Manual{localModelPackage,
-    title = {localModel: LIME-based Explanations With Interpretable Inputs Based on
-Ceteris Paribus Profiles},
-    author = {Mateusz Staniak and Przemysław Biecek},
-    year = {2019},
-    note = {R package version 0.3.10},
-    url = {https://github.com/ModelOriented/localModel},
-  }
   
   @INPROCEEDINGS{randomForestBreiman,
     author = {Leo Breiman},
@@ -922,8 +975,32 @@ doi={10.1023/A:1010933404324}
     url = {https://CRAN.R-project.org/package=keras},
   }
   
+  @InProceedings{Simonyan15,
+  author       = "Karen Simonyan and Andrew Zisserman",
+  title        = "Very Deep Convolutional Networks for Large-Scale Image Recognition",
+  booktitle    = "International Conference on Learning Representations",
+  year         = "2015",
+}
   
+   @Article{party2006,
+    title = {Unbiased Recursive Partitioning: A Conditional Inference Framework},
+    author = {Torsten Hothorn and Kurt Hornik and Achim Zeileis},
+    journal = {Journal of Computational and Graphical Statistics},
+    year = {2006},
+    volume = {15},
+    number = {3},
+    pages = {651--674},
+  }
   
+  @ARTICLE{Tibshirani94regressionshrinkage,
+    author = {Robert Tibshirani},
+    title = {Regression Shrinkage and Selection Via the Lasso},
+    journal = {JOURNAL OF THE ROYAL STATISTICAL SOCIETY, SERIES B},
+    year = {1994},
+    volume = {58},
+    pages = {267--288}
+}
+
   @article{seq2seq,
   author    = {Ilya Sutskever and
                Oriol Vinyals and
@@ -955,12 +1032,94 @@ URL = {
 }
 }
 
-@Manual{R-ingredients,
-    title = {ingredients: Effects and Importances of Model Ingredients},
-    author = {Przemyslaw Biecek},
-    year = {2019},
-    note = {R package version 0.3.4},
-    url = {https://ModelOriented.github.io/ingredients/},
+@manual{crisp1999,
+  title={The CRISP-DM 1.0 Step-by-step data mining guide},
+  author={Pete Chapman and Julian Clinton and Randy Kerber and Thomas Khabaza and Thomas Reinartz and Colin Shearer and Rudiger Wirth},
+  url = "ftp://ftp.software.ibm.com/software/analytics/spss/support/Modeler/Documentation/14/UserManual/CRISP-DM.pdf",
+  year={1999}
+}
+
+@manual{crisp2019wiki,
+  title={CRISP DM: Cross-industry standard process for data mining},
+  url = "https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining",
+  year={2019},
+  author={Wikipedia}
+}
+
+@manual{r4ds2019,
+  title={R for Data Science},
+  author={Garrett Grolemund and Hadley Wickham},
+  url = "https://r4ds.had.co.nz/",
+  year={2019}
+}
+
+@manual{misconceptions2019,
+  title={On Explainable Machine Learning Misconceptions and A More Human-Centered Machine Learning},
+  author={Patrick Hall},
+  url = "https://github.com/jphall663/xai_misconceptions/blob/master/xai_misconceptions.pdf",
+  year={2019}
+}
+
+@Manual{tidy2018,
+    title = {tidymodels: Easily Install and Load the 'Tidymodels' Packages},
+    author = {Max Kuhn and Wickham Hadley},
+    year = {2018},
+    note = {R package version 0.0.2},
+    url = {https://CRAN.R-project.org/package=tidymodels},
   }
   
-  
+@Manual{rup1998,
+    title = {The Rational Unified Process: An Introduction},
+    author = {Philippe Kruchten},
+    year = {1998},
+  }
+
+@Manual{usdp1999,
+    title = {The Unified Software Development Process},
+    author = {Ivar Jacobson and Grady Booch and James Rumbaugh },
+    year = {1999},
+  }
+
+@Manual{spiral1988,
+    title = {A Spiral Model of Software Development and Enhancement},
+    author = {Barry Boehm},
+    year = {1988},
+    journal = {{ IEEE Computer, IEEE, 21(5):61-72}}
+  }
+
+@article{mdp2019,
+  author    = {Przemyslaw Biecek},
+  title     = {Model Development Process},
+  journal   = {CoRR},
+  volume    = {abs/1907.04461},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1907.04461},
+  archivePrefix = {arXiv},
+  eprint    = {1907.04461}
+}
+ 
+ 
+@book{tukey1977,
+  author = {Tukey, John W.},
+  publisher = {Addison-Wesley},
+  title = {Exploratory Data Analysis},
+  year = 1977
+}
+
+@book{Nolan2015,
+ author = {Nolan, Deborah and Lang, Duncan Temple},
+ title = {Data Science in R: A Case Studies Approach to Computational Reasoning and Problem Solving},
+ year = {2015},
+ isbn = {1482234815, 9781482234817},
+ publisher = {Chapman \& Hall/CRC},
+} 
+
+
+@book{Wickham2017,
+ author = {Wickham, Hadley and Grolemund, Garrett},
+ title = {R for Data Science: Import, Tidy, Transform, Visualize, and Model Data},
+ year = {2017},
+ isbn = {1491910399, 9781491910399},
+ edition = {1st},
+ publisher = {O'Reilly Media, Inc.},
+} 
